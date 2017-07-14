@@ -64,6 +64,11 @@ class GUI(object):
 		
 		self.text1 = tk.Text(self.frame, height=10, width=25, fg='white', bg="black")
 		self.text1.config(font=("Courier", 20))
+		self.text1.configure(state="normal")
+		self.text1.tag_configure("center", justify="center")
+		self.text1.insert(END,"Welcome\nto\nMovie\nRating\nPrediction")
+		self.text1.tag_add("center", "1.0", "end")
+		self.text1.configure(state="disable")
 		
 		self.entry_1 = tk.Entry(self.frame, bd =0, textvariable = directorEntry, fg='white', bg="black", width=30)
 		self.entry_1.config(font=("Courier", 16))
@@ -285,7 +290,7 @@ class GUI(object):
 		result = self.actor1+self.actor2+self.writer+self.director+self.producer
 		for genre in self.genres:
 			result = result + genre
-		return "	" + format(result / (5+len(self.genres)),".2f")
+		return format(result / (5+len(self.genres)),".2f")
 		
 	
 	#Funktion um das durchschnittliche Rating eines Genres zu berechnen
@@ -468,7 +473,9 @@ class GUI(object):
 
 		
 		
+		self.text1.tag_configure("center", justify="center")
 		self.text1.insert(END,self.result())
+		self.text1.tag_add("center", "1.0", "end")
 		self.text1.configure(state="disable")
 		self.xmlCheck()
 		#self.newWindow = tk.Toplevel(self.master)
