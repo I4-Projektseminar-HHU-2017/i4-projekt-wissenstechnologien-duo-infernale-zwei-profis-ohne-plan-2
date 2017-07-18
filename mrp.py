@@ -10,13 +10,13 @@ import numpy as np
 #Key zum benutzen der Datenbank von https://www.themoviedb.org/
 set_key('46e474bac23e4add4ae3e4630bd0d7cf')
 
-genre_dic = {"Action":6.1, "Adventure":6.5, "Animation":6.6, "Comedy":6.5, "Crime":6.8, "Documentary":0,
-"Drama":0, "Family":0, "Fantasy":0, "History":0, "Horror":0, "Music":0, "Mystery":0,
-"Romance":0, "Science Fiction":0, "TV Movie":0, "Thriller":0, "War":0, "Western":0}
+genre_dic = {"Action":6.1, "Adventure":6.5, "Animation":6.6, "Comedy":6.5, "Crime":6.8, "Documentary":6.78,
+"Drama":6.82, "Family":6.62, "Fantasy":6.52, "History":6.81, "Horror":6.42, "Music":6.72, "Mystery":6.80,
+"Romance":6.63, "Science Fiction":6.54, "Thriller":6.62, "War":6.21, "Western":6.12}
 
 genre_list = ["Action","Adventure","Animation","Comedy","Crime","Documentary",
 "Drama","Family","Fantasy","History","Horror","Music","Mystery",
-"Romance","Science Fiction","TV Movie","Thriller","War","Western"]
+"Romance","Science Fiction","Thriller","War","Western"]
 
 
 class GUI(object):
@@ -35,19 +35,14 @@ class GUI(object):
 		self.genres = []
 		self.highscore = ""
 		self.buttonState = 0
-		#self.genreRating("Documentary")
-		
-		
 
+	
 	def createWidgets(self):
 		directorEntry = StringVar()
 		writerEntry = StringVar()
 		producerEntry = StringVar()
 		actorEntry = StringVar()
 		actorEntry2 = StringVar()
-		
-		
-
 		
 		self.label_1 = tk.Label(self.frame, text="Director", fg='white', bg="black")
 		self.label_1.config(font=("Courier", 20))
@@ -132,7 +127,7 @@ class GUI(object):
 			except:
 				continue
 		print "average userrating from Movies with " + treffer_name[0].name + " as " + "Actor: " + str(actor_rating / counter)
-		self.actor1 = (actor_rating / counter) * 1.2
+		self.actor1 = (actor_rating / counter)
 		
 	def averageActor2Rating(self, actor_name):
 		counter = 0
@@ -146,7 +141,7 @@ class GUI(object):
 			except:
 				continue
 		print "average userrating from Movies with " + treffer_name[0].name + " as " + "Actor: " + str(actor_rating / counter)
-		self.actor2 = (actor_rating / counter) * 1.2
+		self.actor2 = (actor_rating / counter)
 
 			
 	
@@ -194,7 +189,7 @@ class GUI(object):
 			except:
 				continue
 		print "average userrating from Movies with " + treffer_name[0].name + " as " + "Director: " + str(director_rating / counter)
-		self.director = (director_rating / counter) * 1.2
+		self.director = (director_rating / counter) * 1.3
 			
 	#Durchschnittsbewertung von Filmen mit Writer X
 	def averageWriterRating(self):
@@ -235,7 +230,7 @@ class GUI(object):
 			except:
 				continue
 		print "average userrating from Movies with " + treffer_name[0].name + " as " + "Writer: " + str(writer_rating / counter)
-		self.writer = (writer_rating / counter) * 1.2
+		self.writer = (writer_rating / counter) * 1.3
 		
 	#Durchschnittsbewertung von Filmen mit Producer X
 	def averageProducerRating(self):
@@ -285,12 +280,18 @@ class GUI(object):
 		for item in genres:
 			self.genres.append(genre_dic[genre_list[item]])
 			print genre_list[item]
+
 	
 	def result(self):
 		result = self.actor1+self.actor2+self.writer+self.director+self.producer
+		rGen = 0
 		for genre in self.genres:
 			result = result + genre
-		return format(result / (5+len(self.genres)),".2f")
+			#rGen = rGen + genre
+
+		#result = result + (rGen / len(self.genres))
+		return format(result / (5 + len(self.genres)),".2f")
+		
 		
 	
 	#Funktion um das durchschnittliche Rating eines Genres zu berechnen
@@ -444,28 +445,28 @@ class GUI(object):
 		try:
 			self.averageActor1Rating(self.entry_4.get())
 		except:
-			print "Not found Actor1, Average Actor1 Rating 5.0"
-			self.actor1 = 5.0
+			print "Not found Actor1, Average Actor1 Rating 6.0"
+			self.actor1 = 6.0
 		try:
 			self.averageActor2Rating(self.entry_5.get())
 		except:
-			print "Not found Actor2, Average Actor2 Rating 5.0"
-			self.actor2 = 5.0
+			print "Not found Actor2, Average Actor2 Rating 6.0"
+			self.actor2 = 6.0
 		try:
 			self.averageDirectorRating()
 		except:
-			print "Not found Director, Average Director Rating 5.0"
-			self.director = 5.0
+			print "Not found Director, Average Director Rating 6.0"
+			self.director = 6.0
 		try:
 			self.averageWriterRating()
 		except:
-			print "Not found Writer, Average Writer Rating 5.0"
-			self.writer = 5.0
+			print "Not found Writer, Average Writer Rating 6.0"
+			self.writer = 6.0
 		try:
 			self.averageProducerRating()	
 		except:
-			print "Not found Producer, Average Producer Rating 5.0"
-			self.producer = 5.0
+			print "Not found Producer, Average Producer Rating 6.0"
+			self.producer = 6.0
 		try:
 			self.genreSelect()
 		except:
@@ -478,14 +479,11 @@ class GUI(object):
 		self.text1.tag_add("center", "1.0", "end")
 		self.text1.configure(state="disable")
 		self.xmlCheck()
-		#self.newWindow = tk.Toplevel(self.master)
-		#self.app = ResultWindow(self.newWindow, self.result())
 		
-	
 def main(): 
 	root = tk.Tk()
 	root.title("Movie Rating Prediction")
-	w = 600 
+	w = 615 
 	h = 850
 
 	# get screen width and height
