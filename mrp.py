@@ -1,6 +1,7 @@
 from Tkinter import *
 import Tkinter as tk
 
+#muss extra heruntergeladen werden auf https://pypi.python.org/pypi/tmdb3/
 from tmdb3 import *
 
 from nltk import *
@@ -8,7 +9,8 @@ from nltk import *
 import numpy as np
 
 #Key zum benutzen der Datenbank von https://www.themoviedb.org/
-set_key('46e474bac23e4add4ae3e4630bd0d7cf')
+#eigenen Key erstellen lassen und zwischen den Klammern als String einfügen 
+set_key()
 
 genre_dic = {"Action":6.1, "Adventure":6.5, "Animation":6.6, "Comedy":6.5, "Crime":6.8, "Documentary":6.78,
 "Drama":6.82, "Family":6.62, "Fantasy":6.52, "History":6.81, "Horror":6.42, "Music":6.72, "Mystery":6.80,
@@ -57,7 +59,7 @@ class GUI(object):
 		self.label_6 = tk.Label(self.frame, text="Genre", fg="white", bg="black")
 		self.label_6.config(font=("Courier", 20))
 		
-		self.text1 = tk.Text(self.frame, height=10, width=25, fg='white', bg="black")
+		self.text1 = tk.Text(self.frame, height=7, width=25, fg='white', bg="black")
 		self.text1.config(font=("Courier", 20))
 		self.text1.configure(state="normal")
 		self.text1.tag_configure("center", justify="center")
@@ -108,8 +110,8 @@ class GUI(object):
 		self.entry_5.grid(row=4, column=1)
 		
 		
-		self.button_1.grid(row=7, pady=10, padx=10)
-		self.button_2.grid(row=8, pady=10, padx=10)
+		self.button_1.grid(row=7, pady=4, padx=10)
+		self.button_2.grid(row=8, pady=4, padx=10)
 		
 		
 		self.listbox_1.grid(row=5, column=1, pady=10)
